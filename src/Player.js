@@ -3,45 +3,29 @@ function Player(gameState) {
   this.x = 0;  // in game units
   this.y = 0;  // in game units
   this.rotation = 0;  // in radians
-  this.rotationSpeed = 0.035;  // in radians per frame
-  this.movementSpeed = 2;  // in game units per frame
+  this.rotationSpeed = 0.055;  // in radians per frame
 }
 
 Player.prototype.update = function() {
-  if (KEYS[37]) {
-    // left arrow
+  if (KEYS[65] || KEYS[37]) {
+    // a or left arrow
     this.rotation -= this.rotationSpeed;
   }
-  if (KEYS[39]) {
-    // right arrow
+  if (KEYS[68] || KEYS[39]) {
+    // d or right arrow
     this.rotation += this.rotationSpeed;
-  }
-
-  if (KEYS[87]) {
-    // w
-    this.y -= this.movementSpeed;
-  }
-  if (KEYS[65]) {
-    // a
-    this.x -= this.movementSpeed;
-  }
-  if (KEYS[83]) {
-    // s
-    this.y += this.movementSpeed;
-  }
-  if (KEYS[68]) {
-    this.x += this.movementSpeed;
   }
   this.rotation = this.rotation.mod(Math.PI * 2);
 };
 
 Player.prototype.render = function() {
   ctx.save();
-  ctx.translate(8 * GU + this.x, 4.5 * GU + this.y);
+  ctx.translate(CENTER.x * GU + this.x, CENTER.y * GU + this.y);
   ctx.rotate(this.rotation);
 
   ctx.fillStyle = 'red';
-  ctx.fillRect(-GU / 2, -GU / 2, GU, GU);
+  ctx.fillRect(-3.5 * GU - GU / 4, -GU, GU / 2, 2 * GU);
+  ctx.fillRect(3.5 * GU - GU / 4, -GU, GU / 2, 2 * GU);
 
   ctx.restore();
 };
