@@ -3,19 +3,30 @@ function Player(gameState) {
   this.x = 0;  // in game units
   this.y = 0;  // in game units
   this.rotation = 0;  // in radians
-  this.rotationSpeed = 0.055;  // in radians per frame
+  this.rotationState = 0;  // int in range [0, 7]
+  this.readyToRotateLeft = true;
+  this.readyToRotateRight = true;
 }
 
 Player.prototype.update = function() {
-  if (KEYS[65] || KEYS[37]) {
+  if (this.readyToRotateLeft && (KEYS[65] || KEYS[37])) {
     // a or left arrow
-    this.rotation -= this.rotationSpeed;
+    this.rotationState--;
+    this.readyToRotateLeft = false;
+  } else if (!this.readyToRotateLeft && !(KEYS[65] || KEYS[37])) {
+    this.readyToRotateLeft = true;
   }
-  if (KEYS[68] || KEYS[39]) {
+
+  if (this.readyToRotateRight && (KEYS[68] || KEYS[39])) {
     // d or right arrow
-    this.rotation += this.rotationSpeed;
+    this.rotationState++;
+    this.readyToRotateRight = false;
+  } else if (!this.readyToRotateRight && !(KEYS[68] || KEYS[39])) {
+    this.readyToRotateRight = true;
   }
-  this.rotation = this.rotation.mod(Math.PI * 2);
+
+  this.rotationState = this.rotationState.mod(8);
+  this.rotation = this.rotationState * Math.PI / 4;
 };
 
 Player.prototype.render = function() {
