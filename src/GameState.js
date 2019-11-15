@@ -20,6 +20,7 @@ GameState.prototype.resume = function() {
     }, {x: 15, y: 0, w: 1, h: 1}]
   ];
   this.player = new Player(this);
+  this.spawner = new Spawner(this);
 };
 
 GameState.prototype.render = function(ctx) {
@@ -29,12 +30,14 @@ GameState.prototype.render = function(ctx) {
   ctx.restore();
 
   this.player.render();
+  this.spawner.render();
 
   mm.audioButton.render();
 };
 
 GameState.prototype.update = function() {
   this.player.update();
+  this.spawner.update();
 };
 
 GameState.prototype.playSound = function(soundName) {

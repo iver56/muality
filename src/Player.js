@@ -34,7 +34,7 @@ Player.prototype.render = function() {
   ctx.translate(CENTER.x * GU + this.x, CENTER.y * GU + this.y);
   ctx.rotate(this.rotation);
 
-  ctx.fillStyle = 'red';
+  ctx.fillStyle = '#A8DDFF';
   ctx.fillRect(-3.5 * GU - GU / 4, -GU, GU / 2, 2 * GU);
   ctx.fillRect(3.5 * GU - GU / 4, -GU, GU / 2, 2 * GU);
 
