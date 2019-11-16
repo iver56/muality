@@ -306,3 +306,12 @@ Array.remove = function(array, from, to) {
   array.length = from < 0 ? array.length + from : from;
   return array.push.apply(array, rest);
 };
+
+function rotate(centerX, centerY, x, y, angle) {
+  // https://stackoverflow.com/a/17411276/2319697
+  const cos = Math.cos(angle),
+    sin = Math.sin(angle),
+    nx = (cos * (x - centerX)) + (sin * (y - centerY)) + centerX,
+    ny = (cos * (y - centerY)) - (sin * (x - centerX)) + centerY;
+  return {x: nx, y: ny};
+}
