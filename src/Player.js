@@ -9,9 +9,17 @@ function Player(gameState) {
   this.radius = 4 * GU;
   this.paddleWidth = GU / 2;
   this.score = 0;
+  this.hasGameOverBeenAnnounced = false;
 }
 
 Player.prototype.update = function() {
+  if (mm.hasEnded && !this.hasGameOverBeenAnnounced) {
+    this.hasGameOverBeenAnnounced = true;
+    alert(`Game over! Final score: ${this.score}`);
+  } else if (this.hasGameOverBeenAnnounced) {
+    return;
+  }
+
   if (this.readyToRotateLeft && (KEYS[65] || KEYS[37])) {
     // a or left arrow
     this.rotationIndex--;

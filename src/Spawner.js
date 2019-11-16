@@ -10,6 +10,9 @@ function Spawner(gameState) {
 }
 
 Spawner.prototype.update = function() {
+  if (mm.hasEnded) {
+    return;
+  }
   this.radius = GU + 0.3 * GU * mm.beat;
 
   if (mm.beat > 0.95 && t - this.lastProjectileSpawnedTime > 200) {
@@ -18,6 +21,9 @@ Spawner.prototype.update = function() {
       this.currentRotationIndex++;
     } else if (r < 2 / 3) {
       this.currentRotationIndex--;
+    }
+    if (t >= 4 * 4 * mm.timePerBeat * 1000 && Math.random() < 0.5) {
+      this.currentRotationIndex += 4;
     }
     this.currentRotationIndex = this.currentRotationIndex.mod(8);
 
