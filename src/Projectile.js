@@ -3,8 +3,8 @@ function Projectile(gameState, rotationIndex, color) {
 
   this.rotationIndex = rotationIndex;
   this.rotation = this.rotationIndex * Math.PI / 4;
-  this.x = GU * Math.cos(this.rotation);
-  this.y = GU * Math.sin(this.rotation);
+  this.x = GU * Math.cos(this.rotation);  // offset from center
+  this.y = GU * Math.sin(this.rotation);  // offset from center
   this.dx = 0.068 * GU * Math.cos(this.rotation);
   this.dy = 0.068 * GU * Math.sin(this.rotation);
   this.color = color;
@@ -30,6 +30,12 @@ Projectile.prototype.update = function() {
       this.gameState.player.score--;
     }
     this.state = 'collided';
+    const r = this.color === 'yellow' ? 255 : 168;
+    const g = this.color === 'yellow' ? 243 : 221;
+    const b = this.color === 'yellow' ? 153 : 255;
+    this.gameState.spawner.particleSystem.explode(
+      CENTER.x * GU + this.x, CENTER.y * GU + this.y, r, g, b
+    );
   }
 };
 

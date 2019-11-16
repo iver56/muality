@@ -7,6 +7,7 @@ function Spawner(gameState) {
   this.projectiles = [];
   this.lastProjectileSpawnedTime = -999;
   this.currentRotationIndex = (Math.random() * 8) | 0;
+  this.particleSystem = new ParticleSystem();
 }
 
 Spawner.prototype.update = function() {
@@ -42,7 +43,6 @@ Spawner.prototype.update = function() {
         this.gameState, this.getOppositeRotationIndex(), color
       );
       this.projectiles.push(anotherProjectile);
-
     }
   }
 
@@ -55,6 +55,8 @@ Spawner.prototype.update = function() {
     }
   }
   this.projectiles = newProjectiles;
+
+  this.particleSystem.update();
 };
 
 Spawner.prototype.getOppositeRotationIndex = function() {
@@ -86,4 +88,6 @@ Spawner.prototype.render = function() {
     let projectile = this.projectiles[i];
     projectile.render();
   }
+
+  this.particleSystem.render();
 };
