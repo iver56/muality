@@ -19,7 +19,7 @@ Spawner.prototype.update = function() {
     } else if (r < 2 / 3) {
       this.currentRotationIndex--;
     }
-    this.currentRotationIndex.mod(8);
+    this.currentRotationIndex = this.currentRotationIndex.mod(8);
 
     let color = Math.random() < 0.5 ? 'blue' : 'yellow';
     let projectile = new Projectile(
