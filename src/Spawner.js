@@ -39,10 +39,15 @@ Spawner.prototype.update = function() {
     }
   }
 
+  let newProjectiles = [];
   for (let i = 0; i < this.projectiles.length; i++) {
     let projectile = this.projectiles[i];
     projectile.update();
+    if (projectile.state === 'travelling') {
+      newProjectiles.push(projectile);
+    }
   }
+  this.projectiles = newProjectiles;
 };
 
 Spawner.prototype.getOppositeRotationIndex = function() {

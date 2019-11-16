@@ -3,6 +3,7 @@ function MusicManager() {
   this.music = new Audio();
   this.loaded = false;
   this.tempoInBpm = 96;  // in bpm
+  this.timePerBeat = 60 / this.tempoInBpm;  // in seconds
   var that = this;
   loaded++;
   this.music.addEventListener("loadeddata", function() {
