@@ -17,7 +17,7 @@ Spawner.prototype.update = function() {
   this.radius = GU + 0.3 * GU * mm.beat;
 
   if (mm.music.currentTime >= 4 * mm.timePerBeat &&
-    mm.beat > 0.95 && t - this.lastProjectileSpawnedTime > 200) {
+    mm.beat > 0.85 && t - this.lastProjectileSpawnedTime > 200) {
     let r = Math.random();
     if (r < 1 / 3) {
       this.currentRotationIndex++;
