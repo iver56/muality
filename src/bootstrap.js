@@ -104,7 +104,6 @@ function bootstrap() {
   canvas = document.createElement("canvas");
   ctx = canvas.getContext("2d");
   canvas.style.zIndex = 999;
-  game_data = readData();
 
   sm = new StateManager();
   mm = new MusicManager();
@@ -123,16 +122,10 @@ function bootstrap() {
   }
 
   document.addEventListener("keydown", function(e) {
-    if(e.keyCode == 9){ //TAB
-      e.preventDefault();
-    }
     KEYS[e.keyCode] = true;
   });
 
   document.addEventListener("keyup", function(e) {
-    if(e.keyCode == 9){ //TAB
-      e.preventDefault();
-    }
     KEYS[e.keyCode] = false;
   });
 
@@ -218,40 +211,6 @@ function resize(e) {
     wrapper.style.marginTop = -9 * GU / 2 + 'px';
     wrapper.style.fontSize = 0.15 * GU + 'px';
     wrapper.style.zIndex = 99999999;
-  }
-}
-
-function saveData(data) {
-  json_data = JSON.stringify(data);
-  setCookie("game_data", json_data, 10 ^ 5);
-}
-
-function readData() {
-  json_data = getCookie("game_data");
-  if (typeof json_data !== "undefined") {
-    return JSON.parse(json_data);
-  } else {
-    /* default game_data object */
-    return {progress: [0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]};
-  }
-}
-
-function setCookie(c_name, value, exdays) {
-  var exdate = new Date();
-  exdate.setDate(exdate.getDate() + exdays);
-  var c_value = encodeURIComponent(value) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
-  document.cookie = c_name + "=" + c_value;
-}
-
-function getCookie(c_name) {
-  var i, x, y, ARRcookies = document.cookie.split(";");
-  for (i = 0; i < ARRcookies.length; i++) {
-    x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
-    y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
-    x = x.replace(/^\s+|\s+$/g, "");
-    if (x == c_name) {
-      return decodeURIComponent(y);
-    }
   }
 }
 
@@ -347,12 +306,4 @@ Array.remove = function(array, from, to) {
   var rest = array.slice((to || from) + 1 || array.length);
   array.length = from < 0 ? array.length + from : from;
   return array.push.apply(array, rest);
-}
-
-function highResolution() {
-  var pixelRatio = 1;
-  if (window.devicePixelRatio) {
-    pixelRatio = window.devicePixelRatio;
-  }
-  return pixelRatio * $(window).width() > 1440 && pixelRatio * $(window).height() > 810;
-}
+};
