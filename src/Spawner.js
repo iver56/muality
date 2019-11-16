@@ -29,7 +29,7 @@ Spawner.prototype.update = function() {
     this.projectiles.push(projectile);
     this.lastProjectileSpawnedTime = t;
 
-    if (t > 16000) {
+    if (t > 12.5 * 4 * mm.timePerBeat * 1000) {
       // Spawn a second projectile
       let anotherProjectile = new Projectile(
         this.gameState, this.getOppositeRotationIndex(), color
