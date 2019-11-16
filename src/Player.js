@@ -3,7 +3,7 @@ function Player(gameState) {
   this.x = 0;  // in game units
   this.y = 0;  // in game units
   this.rotation = 0;  // in radians
-  this.rotationState = 0;  // int in range [0, 7]
+  this.rotationState = 0;  // int in range [0, 3]
   this.readyToRotateLeft = true;
   this.readyToRotateRight = true;
 }
@@ -25,7 +25,7 @@ Player.prototype.update = function() {
     this.readyToRotateRight = true;
   }
 
-  this.rotationState = this.rotationState.mod(8);
+  this.rotationState = this.rotationState.mod(4);
   this.rotation = this.rotationState * Math.PI / 4;
 };
 
