@@ -3,10 +3,10 @@ function Projectile(gameState, rotationIndex, color) {
 
   this.rotationIndex = rotationIndex;
   this.rotation = this.rotationIndex * Math.PI / 4;
-  this.x = GU * Math.cos(this.rotation);  // offset from center
-  this.y = GU * Math.sin(this.rotation);  // offset from center
-  this.dx = 0.068 * GU * Math.cos(this.rotation);
-  this.dy = 0.068 * GU * Math.sin(this.rotation);
+  this.x = Math.cos(this.rotation);  // offset from center
+  this.y = Math.sin(this.rotation);  // offset from center
+  this.dx = 0.068 * Math.cos(this.rotation);
+  this.dy = 0.068 * Math.sin(this.rotation);
   this.color = color;
   this.renderColor = this.color === 'yellow' ? '#FFF399' : '#A8DDFF';
   this.timeSpawned = t;
@@ -34,16 +34,16 @@ Projectile.prototype.update = function() {
     const g = this.color === 'yellow' ? 243 : 221;
     const b = this.color === 'yellow' ? 153 : 255;
     this.gameState.spawner.particleSystem.explode(
-      CENTER.x * GU + this.x, CENTER.y * GU + this.y, r, g, b, this.rotation
+      CENTER.x * GU + this.x * GU, CENTER.y * GU + this.y * GU, r, g, b, this.rotation
     );
   }
 };
 
 Projectile.prototype.render = function() {
   ctx.save();
-  ctx.translate(CENTER.x * GU + this.x, CENTER.y * GU + this.y);
+  ctx.translate(CENTER.x * GU + this.x * GU, CENTER.y * GU + this.y * GU);
   ctx.rotate(this.rotation);
   ctx.fillStyle = this.renderColor;
-  ctx.fillRect(-GU / 6, -GU / 2, GU/3, GU);
+  ctx.fillRect(-GU / 6, -GU / 2, GU / 3, GU);
   ctx.restore();
 };
