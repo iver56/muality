@@ -54,7 +54,6 @@ window.requestAnimFrame = (function() {
 })();
 
 var MS_PER_UPDATE_FRAME = 1000 / 60;
-var RENDER_FRAMES_PER_SECOND = 0;
 var RENDER_FRAMES_SO_FAR_THIS_COUNT_PERIOD = 0;
 var TIME_AT_RENDER_FRAME_COUNT_PERIOD_START = performance.now();
 var UPDATE_FRAME = 0;
@@ -74,8 +73,8 @@ function loop() {
   old_time = t;
   songTime = mm.music.currentTime;
   while (dt >= MS_PER_UPDATE_FRAME) {
-    sm.update();
     mm.update();
+    sm.update();
     MOUSE.scrollX = 0;
     MOUSE.scrollY = 0;
     tick++;
