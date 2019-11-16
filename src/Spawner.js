@@ -22,7 +22,7 @@ Spawner.prototype.update = function() {
     } else if (r < 2 / 3) {
       this.currentRotationIndex--;
     }
-    if (t >= 4 * 4 * mm.timePerBeat * 1000 && Math.random() < 0.5) {
+    if (mm.music.currentTime >= 4 * 4 * mm.timePerBeat && Math.random() < 0.5) {
       this.currentRotationIndex += 4;
     }
     this.currentRotationIndex = this.currentRotationIndex.mod(8);
@@ -35,7 +35,7 @@ Spawner.prototype.update = function() {
     this.projectiles.push(projectile);
     this.lastProjectileSpawnedTime = t;
 
-    if (t > 12.5 * 4 * mm.timePerBeat * 1000) {
+    if (mm.music.currentTime > 12.5 * 4 * mm.timePerBeat) {
       // Spawn a second projectile
       let anotherProjectile = new Projectile(
         this.gameState, this.getOppositeRotationIndex(), color
