@@ -42,4 +42,10 @@ Player.prototype.render = function() {
   ctx.fillRect(this.radius - this.paddleWidth / 2, -GU, this.paddleWidth, 2 * GU);
 
   ctx.restore();
+
+  ctx.save();
+  ctx.fillStyle = 'white';
+  ctx.font = `${GU / 3}px Arial`;
+  ctx.fillText(`Score: ${this.score}`, 0.5 * GU, 0.5 * GU);
+  ctx.restore();
 };
