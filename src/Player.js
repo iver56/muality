@@ -6,8 +6,8 @@ function Player(gameState) {
   this.rotationIndex = 0;  // int in range [0, 3]
   this.readyToRotateLeft = true;
   this.readyToRotateRight = true;
-  this.radius = 4 * GU;
-  this.paddleWidth = GU / 2;
+  this.radius = 4;
+  this.paddleWidth = 0.5;
   this.score = 0;
   this.hasGameOverBeenAnnounced = false;
 }
@@ -46,8 +46,8 @@ Player.prototype.render = function() {
   ctx.rotate(this.rotation);
 
   ctx.fillStyle = '#A8DDFF';
-  ctx.fillRect(-this.radius - this.paddleWidth / 2, -GU, this.paddleWidth, 2 * GU);
-  ctx.fillRect(this.radius - this.paddleWidth / 2, -GU, this.paddleWidth, 2 * GU);
+  ctx.fillRect(-this.radius * GU - GU * this.paddleWidth / 2, -GU, GU * this.paddleWidth, 2 * GU);
+  ctx.fillRect(this.radius * GU - GU * this.paddleWidth / 2, -GU, GU * this.paddleWidth, 2 * GU);
 
   ctx.restore();
 
