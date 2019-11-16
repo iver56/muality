@@ -48,12 +48,12 @@ ParticleSystem.prototype.render = function() {
 
 
 ParticleSystem.prototype.explode = function(x, y, r, g, b, rotation) {
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 80; i++) {
     if (this.numParticles >= 511) return;
     this.numParticles++;
     let p = this.particles[this.numParticles];
     let direction = Math.random() * Math.PI * 2;
-    let magnitude = Math.random() * 0.05 * GU;
+    let magnitude = Math.random() * 0.025 * GU;
     p.r = r;
     p.g = g;
     p.b = b;
