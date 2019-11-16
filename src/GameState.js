@@ -29,8 +29,8 @@ GameState.prototype.render = function(ctx) {
 
   ctx.restore();
 
-  this.player.render();
   this.spawner.render();
+  this.player.render();
 
   mm.audioButton.render();
 };

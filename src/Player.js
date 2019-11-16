@@ -51,9 +51,14 @@ Player.prototype.render = function() {
 
   ctx.restore();
 
+  // Render score
   ctx.save();
   ctx.fillStyle = 'white';
   ctx.font = `${GU / 3}px Arial`;
   ctx.fillText(`Score: ${this.score}`, 0.5 * GU, 0.5 * GU);
+
+  // Render progress bar
+  let progress = mm.music.currentTime / mm.musicLength;
+  ctx.fillRect(0, (9 - 0.15) * GU, progress * GU * 16, 0.15 * GU);
   ctx.restore();
 };
