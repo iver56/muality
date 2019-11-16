@@ -34,7 +34,7 @@ Projectile.prototype.update = function() {
     const g = this.color === 'yellow' ? 243 : 221;
     const b = this.color === 'yellow' ? 153 : 255;
     this.gameState.spawner.particleSystem.explode(
-      CENTER.x * GU + this.x * GU, CENTER.y * GU + this.y * GU, r, g, b, this.rotation
+      CENTER.x + this.x, CENTER.y + this.y, r, g, b, this.rotation
     );
   }
 };

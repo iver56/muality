@@ -37,7 +37,7 @@ ParticleSystem.prototype.render = function() {
   for (let i = 0; i < this.numParticles; i++) {
     ctx.save();
     let p = this.particles[i];
-    ctx.translate(p.x, p.y);
+    ctx.translate(p.x * GU, p.y * GU);
     ctx.rotate(p.rotation);
     ctx.fillStyle = 'rgba(' + p.r + ',' + p.g + ',' + p.b + ',' + Math.min(1, p.t / 20) + ')';
     ctx.fillRect(0, 0, GU * 0.1, GU * 0.1);
@@ -53,13 +53,13 @@ ParticleSystem.prototype.explode = function(x, y, r, g, b, rotation) {
     this.numParticles++;
     let p = this.particles[this.numParticles];
     let direction = Math.random() * Math.PI * 2;
-    let magnitude = Math.random() * 0.025 * GU;
+    let magnitude = Math.random() * 0.025;
     p.r = r;
     p.g = g;
     p.b = b;
     p.rotation = rotation;
     const rotatedPoint = rotate(
-      x, y, x - GU / 6 + 1 / 3 * GU * Math.random(), y - GU / 2 + GU * Math.random(), -rotation
+      x, y, x - 1 / 6 + 1 / 3 * Math.random(), y - 1 / 2 + Math.random(), -rotation
     );
     p.x = rotatedPoint.x;
     p.y = rotatedPoint.y;
