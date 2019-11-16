@@ -3,7 +3,7 @@ function Spawner(gameState) {
   this.x = 0;  // in game units
   this.y = 0;  // in game units
   this.radius = GU;
-  this.color = '#FFF399';
+  this.renderColor = '#FFF399';
   this.projectiles = [];
   this.lastProjectileSpawnedTime = -999;
   this.currentRotationIndex = (Math.random() * 8) | 0;
@@ -14,20 +14,29 @@ Spawner.prototype.update = function() {
 
   if (mm.beat > 0.95 && t - this.lastProjectileSpawnedTime > 200) {
     let r = Math.random();
-    if (r < 1/3) {
+    if (r < 1 / 3) {
       this.currentRotationIndex++;
-    } else if (r < 2/3) {
+    } else if (r < 2 / 3) {
       this.currentRotationIndex--;
     }
     this.currentRotationIndex.mod(8);
-    let rotation = this.currentRotationIndex * Math.PI / 4;
-    let x = GU * Math.cos(rotation);
-    let y = GU * Math.sin(rotation);
-    let color = Math.random() < 0.5 ? '#FFF399' : '#A8DDFF';
-    this.color = color;
-    let projectile = new Projectile(this.gameState, x, y, rotation, color);
+
+    let color = Math.random() < 0.5 ? 'blue' : 'yellow';
+    let projectile = new Projectile(
+      this.gameState, this.currentRotationIndex, color
+    );
+    this.renderColor = projectile.renderColor;
     this.projectiles.push(projectile);
     this.lastProjectileSpawnedTime = t;
+
+    if (t > 16000) {
+      // Spawn a second projectile
+      let anotherProjectile = new Projectile(
+        this.gameState, this.getOppositeRotationIndex(), color
+      );
+      this.projectiles.push(anotherProjectile);
+
+    }
   }
 
   for (let i = 0; i < this.projectiles.length; i++) {
@@ -36,12 +45,16 @@ Spawner.prototype.update = function() {
   }
 };
 
+Spawner.prototype.getOppositeRotationIndex = function() {
+  return (this.currentRotationIndex + 4) % 8;
+};
+
 Spawner.prototype.render = function() {
   ctx.save();
   ctx.translate(CENTER.x * GU + this.x, CENTER.y * GU + this.y);
 
   ctx.beginPath();
-  ctx.fillStyle = this.color;
+  ctx.fillStyle = this.renderColor;
   ctx.moveTo(
     this.radius * Math.cos(-Math.PI / 8),
     this.radius * Math.sin(-Math.PI / 8)
